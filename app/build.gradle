@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.isai.fabian.android.loginfabebook"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "FACEBOOK_PROVIDER_AUTH", project.property('FACEBOOK_PROVIDER') + project.property('FACEBOOK_APP_ID')
+            resValue "string", "FACEBOOK_APP_ID", project.property('FACEBOOK_APP_ID')
+        }
+        debug {
+            resValue "string", "FACEBOOK_PROVIDER_AUTH", project.property('FACEBOOK_PROVIDER') + project.property('FACEBOOK_APP_ID')
+            resValue "string", "FACEBOOK_APP_ID", project.property('FACEBOOK_APP_ID')
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
+
+    compile "com.facebook.android:facebook-android-sdk:$rootProject.ext.facebookVersion"
+    compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha3'
+}
